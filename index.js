@@ -1,3 +1,19 @@
+function getPaddleColor() {
+  let colorPaddleList = JSON.parse(localStorage.getItem("ColorPaddle"));
+  if (colorPaddleList === null) {
+    colorPaddleList = [];
+  }
+  return colorPaddleList;
+}
+
+function getBallColor() {
+  let colorBall = JSON.parse(localStorage.getItem("ColorBall"));
+  if (colorBall === null) {
+    colorBall = [];
+  }
+  return colorBall;
+}
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var ballRadius = 10;
@@ -6,7 +22,7 @@ var y = canvas.height - 30;
 var dx = 2;
 var dy = -2;
 let paddleHeight = 10;
-let paddleWidth = 100;
+let paddleWidth = 80;
 var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
@@ -35,6 +51,8 @@ for (var c = 0; c < brickColumnCount; c++) {
     bricks[c][r] = { x: 0, y: 0, status: 1 };
   }
 }
+let colorPaddle = getPaddleColor();
+let colorBall = getBallColor();
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -78,7 +96,6 @@ function collisionDetection() {
           if (score == brickRowCount * brickColumnCount) {
             alert("Vous avez gagné! niveau suivant !");
             brickRowCount + 1;
-            document.location.reload();
           }
         }
       }
@@ -89,14 +106,14 @@ function collisionDetection() {
 function drawBall() {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle = colorBall[0] || "#0095DD";
   ctx.fill();
   ctx.closePath();
 }
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle = colorPaddle[0] || "#0095DD";
   ctx.fill();
   ctx.closePath();
 }
@@ -119,12 +136,12 @@ function drawBricks() {
 }
 function drawScore() {
   ctx.font = "16px Arial";
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle = "black";
   ctx.fillText("Score: " + score, 8, 20);
 }
 function drawLives() {
   ctx.font = "16px Arial";
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle = "black";
   ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
 }
 

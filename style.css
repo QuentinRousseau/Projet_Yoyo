@@ -8,5 +8,16 @@ canvas {
   margin: auto;
 }
 .border {
-  border: 2px solid #0095dd;
+  border: 2px solid black;
+}
+.block {
+  position: relative;
+  border: 2px solid red;
+  width: 40px;
+  height: 40px;
+  top: 50px;
+  left: 50px;
+}
+.onSelect {
+  display: none;
 }
