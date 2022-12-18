@@ -19,8 +19,13 @@ var ctx = canvas.getContext("2d");
 var ballRadius = 10;
 var x = canvas.width / 2;
 var y = canvas.height - 30;
-var dx = 2;
-var dy = -2;
+
+// vitesse de la balle
+var dx = 3;
+var dy = -3;
+
+// dimensions du paddle
+
 let paddleHeight = 10;
 let paddleWidth = 80;
 var paddleX = (canvas.width - paddleWidth) / 2;
@@ -91,6 +96,8 @@ function collisionDetection() {
         ) {
           dy = -dy;
           paddleWidth--;
+          dy++;
+          dx++;
           b.status = 0;
           score++;
           if (score == brickRowCount * brickColumnCount) {
